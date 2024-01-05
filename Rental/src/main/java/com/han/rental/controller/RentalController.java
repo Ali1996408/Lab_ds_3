@@ -40,11 +40,23 @@ public class RentalController {
         return rentalService.createRental(xUserName, rentalRequest);
     }
 
-
     @DeleteMapping("/{rentalUid}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("rentalUid") UUID rentalUid) {
         rentalService.deleteRental(rentalUid);
+    }
+
+    //+++
+    @PutMapping(value = "/{rentalUid}", produces = "application/json")
+    public RentalResponse update(@PathVariable("rentalUid") UUID rentalUid) {
+        return rentalService.updateRental(rentalUid);
+    }
+
+    //+++
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/manage/health")
+    public String checkServiceAvailability() {
+        return "Rental service is available";
     }
 
 }

@@ -1,0 +1,17 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:13-alpine
+    container_name: car-rental
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "123456"
+      POSTGRES_DB: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./postgres/:/docker-entrypoint-initdb.d/
+    ports:
+      - "5432:5432"
+
+volumes:
+  db-data:

@@ -1,6 +1,5 @@
 package com.han.rental.payload;
 
-import com.han.cars.pojo.Car;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

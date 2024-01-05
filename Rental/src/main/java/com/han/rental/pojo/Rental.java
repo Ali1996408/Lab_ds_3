@@ -1,6 +1,5 @@
 package com.han.rental.pojo;
 
-import com.han.cars.pojo.Car;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

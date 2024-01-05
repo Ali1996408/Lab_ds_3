@@ -1,0 +1,67 @@
+实验室#3
+## 容错
+
+### 措辞
+
+基于 [Lab #2](https://github.com/bmstu-rsoi/lab2-template) 实施可增加
+系统容错。
+
+＃＃＃ 要求
+
+1. 在网关服务上针对_所有_读取操作实现断路器模式。 在内存中累积统计数据，以及
+    如果系统未响应 N 次，则立即发送回退而不是请求 N + 1 次。 短暂超时后
+    查询真实系统以检查其状态。
+2. 在每个服务上，创建一个特殊端点 `GET /manage/health`，返回 200 OK，它将用于
+    检查脚本中的服务可用性（在 [Github Actions](.github/workflows/classroom.yml) 中），用于检查所有服务的准备情况
+    服务 [wait-script.sh](scripts/wait-script.sh) 和测试 [test-script.sh](scripts/test-script.sh))。
+"$path"/wait-for.sh -t 120 "http://localhost:$port/manage/health" -- echo "Host localhost:$port is active"
+
+1. 如果来自非关键源（不是主要源）的数据不可用，则返回回退响应。 取决于
+    情况，可能是：
+     * 空对象或数组；
+     * 具有填充字段（“uid”或类似字段）的对象，通过该字段与另一个系统进行通信；
+     * 默认字符串（如果变量的类型不改变）。
+2. 该任务描述了更改多个系统状态的两个操作。 如果其中一个系统不可用，
+    参与此操作，执行：
+      1.回滚整个操作；
+      2.向用户返回操作成功完成的响应，并将此请求放入网关服务中
+         重新执行队列。
+3. 对于自动测试运行在文件 [autograding.json](.github/classroom/autograding.json)
+    并 [classroom.yml](.github/workflows/classroom.yml) 将 `<variant>` 替换为您的变体。
+4. 在 [docker-compose.yml](docker-compose.yml) 中注册 docker 容器的组装和启动。
+5. 将代码存储在Github上，使用Github Actions进行构建。
+6.每个服务都必须用docker包装起来。
+7. 在classroom.yml 中，添加组装和运行单元测试的步骤。
+
+
+### 说明
+
+1.本地开发可以使用docker中的Postgres。
+2. 服务交互方案仍与[实验#2](https://github.com/bmstu-rsoi/lab2-template)中相同。
+3. 要实现队列，您可以使用本机语言实现（例如 Java 的 BlockingQueue），或者
+    一些现成的实现，如 RabbitMQ、Redis、ZeroMQ 等。 使用关系数据库是非常不可取的
+    数据作为队列模拟的一种手段。
+4. 可以使用外部队列或者在docker中运行。
+5.为了检查容错能力，使用停止和启动docker容器，这确实
+    脚本[test-script.sh](scripts/test-script.sh)。 该脚本必须从项目的根目录运行，因为 它访问该文件夹
+    邮递员的选项。
+# запуск тестового сценария:
+# * <variant> – номер варианта (v1 | v2 | v3 | v4 )
+# * <service> – имя сервиса в Docker Compose
+# * <port>    – порт, на котором запущен сервис
+$ scripts/test-script.sh <variant> <service> <port>
+
+### 接受任务
+
+1. 当您收到任务时，您为您的用户创建此存储库的分支。
+2. 所有测试成功完成后，Github Classroom Dashboard 中将标记成功
+    测试。
+
+### 任务选项
+
+任务选项的分布类似于[LR #2](https://github.com/bmstu-rsoi/lab2-template)。
+
+1.【航班预订系统】(v1/README.md)
+2. [酒店预订系统](v2/README.md)
+3.【租车系统】(v3/README.md)
+4.【图书馆系统】(

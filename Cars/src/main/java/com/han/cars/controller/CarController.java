@@ -4,6 +4,7 @@ import com.han.cars.payload.response.CarResponse;
 import com.han.cars.payload.response.PaginationResponse;
 import com.han.cars.service.CarServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -31,4 +32,10 @@ public class CarController {
         return carService.getCar(carUid);
     }
 
+    //+++
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/manage/health")
+    public String checkServiceAvailability(){
+        return "Car service is available";
+    }
 }

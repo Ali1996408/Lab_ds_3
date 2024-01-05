@@ -6,6 +6,7 @@ import com.han.payment.payload.PaymentResponse;
 import com.han.payment.service.PaymentServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -34,5 +35,12 @@ public class PaymentController {
     @GetMapping(value = "/{paymentUid}", produces = "application/json")
     public PaymentResponse getPayment(@PathVariable("paymentUid") UUID paymentUid) {
         return paymentService.getPayment(paymentUid);
+    }
+
+    //+++
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/manage/health")
+    public String checkServiceAvailability(){
+        return "Payment service is available";
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
 @Service
 public class RentalServiceImpl implements RentalService {
 
@@ -84,6 +85,13 @@ public class RentalServiceImpl implements RentalService {
         rentalRepository.delete(rental);
     }
 
+    @Override
+    public RentalResponse updateRental(UUID rentalUid) {
+        Rental rental = rentalRepository.findByRentalUid(rentalUid).orElseThrow(
+                () -> new EntityNotFoundException("Not found rental by uid " + rentalUid));
+        rental.setStatus("CANCELED");
+        return buildRentalResponse(rentalRepository.save(rental));
+    }
 }
 
 

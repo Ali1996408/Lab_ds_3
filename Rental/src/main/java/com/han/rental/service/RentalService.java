@@ -16,4 +16,7 @@ public interface RentalService {
     RentalResponse createRental(String username, RentalRequest rentalRequest);
 
     void deleteRental(UUID rentalUid);
+
+    RentalResponse updateRental(UUID rentalUid);
+
 }

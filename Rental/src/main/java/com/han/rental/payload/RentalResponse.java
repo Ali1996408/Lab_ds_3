@@ -1,6 +1,5 @@
 package com.han.rental.payload;
 
-import com.han.cars.pojo.Car;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
