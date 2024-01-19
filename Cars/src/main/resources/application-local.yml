@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/car
-    username: postgres
-    password: "123456"
+    url: jdbc:postgresql://dpg-cmkmrnv109ks73efgd3g-a.frankfurt-postgres.render.com/ds_lab_d6su
+    username: ds_lab_d6su_user
+    password: dCUFwobnkUKgUO35yMSSLBEcC3gW7l7I
     driver-class-name: org.postgresql.Driver
